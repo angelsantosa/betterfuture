@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for o in org %}
+    <li><img src="{{o.picture.url}}" alt="" height="25"> - {{ o }}</li>
+    {% empty %}
+    <li>There's no orgs to donate</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

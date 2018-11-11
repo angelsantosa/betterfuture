@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+    {% for i in item %}
+    <li> <img src="{{ i.picture.url }}" alt="" height="25"> -  {{ i }} - Price: {{i.token_price}} Tokens</li>
+    {% empty %}
+    <li>There's no items no shop</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
