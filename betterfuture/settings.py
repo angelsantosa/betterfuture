@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    'users',
-    'tokens',
-    'footprints',
+    'betterfuture.users',
+    'betterfuture.tokens',
+    'betterfuture.footprints',
 
 
 ]
@@ -141,3 +141,5 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_ON_GET = True
+
+AUTH_USER_MODEL = 'users.User'
