@@ -65,7 +65,7 @@ ROOT_URLCONF = 'betterfuture.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,11 +135,13 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_URL = '/media/'
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_ON_GET = True
-
+ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = 'users:dashboard'
