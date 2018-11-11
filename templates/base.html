@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<ul>
+    {% if user.is_authenticated %}
+    <li>Hello {{ user }}</li>
+    <li><a href="{% url 'users:dashboard' %}">Dashboard</a></li>
+    <li><a href="{% url 'footprints:item_list' %}">Shop</a></li>
+    <li><a href="{% url 'footprints:org_list' %}">Donate</a></li>
+    <li><a href="{% url 'footprints:pedometer_create' %}">Pedometer</a></li>
+    <li><a href="{% url 'footprints:pet_create' %}">Recycle</a></li>
+    <li><a href="{% url 'account_logout' %}">Log out</a></li>
+    <h3>
+        You owe me <b>{{user.userco2.get_co2}} CO2</b>
+    </h3>
+    
+    <h3>
+        You have <b>{{ user.usertoken.tokens }} Tokens</b>
+    </h3>
+    {% else %}
+    <li><a href="{% url 'account_login' %}">Log in</a></li>
+    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+    {% endif %}
+
+</ul>
+
+{% block content %}
+defolt
+{% endblock content %}
+</body>
+
+</html>

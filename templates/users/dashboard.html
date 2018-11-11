@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for f in fprints %}
+    <li>{{ f }}</li>
+    {% empty %}
+    <li>You haven't done shit</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
