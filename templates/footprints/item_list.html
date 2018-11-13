@@ -4,7 +4,7 @@
 
 <ul>
     {% for i in item %}
-    <li> <img src="{{ i.picture.url }}" alt="" height="25"> -  {{ i }} - Price: {{i.token_price}} Tokens</li>
+    <li> <a href="{{i.get_detail_url}}"> <img src="{{ i.picture.url }}" alt="" height="25"> -  {{ i }} - Price: {{i.token_price}} Tokens</a></li>
     {% empty %}
     <li>There's no items no shop</li>
     {% endfor %}

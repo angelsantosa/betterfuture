@@ -3,7 +3,7 @@
 {% block content %}
 <ul>
     {% for o in org %}
-    <li><img src="{{o.picture.url}}" alt="" height="25"> - {{ o }}</li>
+    <li> <a href="{{o.get_detail_url}}"><img src="{{o.picture.url}}" alt="" height="25"> - {{ o }}</a></li>
     {% empty %}
     <li>There's no orgs to donate</li>
     {% endfor %}
