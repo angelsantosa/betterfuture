@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from web3 import Web3, HTTPProvider
+
 from shortuuidfield import ShortUUIDField
 
 from betterfuture.footprints.models import FootPrint
+from .blockchain import ERC20_ABI
 # Create your models here.
 
 class User(AbstractUser):
@@ -155,10 +158,19 @@ class UserFootPrint(models.Model):
         co2 = self.footprint.co2_multiplicative * self.value
         
         self.user.userco2.co2_paid += co2
-        self.user.usertoken.tokens += co2
+        if self.footprint.transaction_type == self.footprint.TRANSACTION_EGRESS_CODE:
+            self.user.usertoken.tokens = self.user.usertoken.tokens - co2
+            self.blockchain_transaction(self.user.pk, self.pk)
+        else:
+            self.user.usertoken.tokens += co2
 
         self.user.userco2.save()
         self.user.usertoken.save()
+
+    def blockchain_transaction(self, user_uuid, transaction_uuid):
+        web3 = Web3(HTTPProvider('http://127.0.0.1:8545'))
+        contract = web3.eth.contract(address=Web3.toChecksumAddress('0xe80e06203a6a0aa9ed55f142f6437d25003b4e96'), abi=ERC20_ABI)
+        transaction = contract.functions.addTransaction(user_uuid, transaction_uuid).transact({'from': web3.eth.accounts[0], 'gas':3900000})
 
     def __str__(self):
         return 'FootPrint ({}) movement for User: {}'.format(self.footprint, self.user)
