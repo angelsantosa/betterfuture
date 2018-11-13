@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 from shortuuidfield import ShortUUIDField
 
@@ -46,6 +47,9 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_detail_url(self):
+        return reverse_lazy('footprints:org_detail', kwargs={'pk': self.pk})
 
 class Item(models.Model):
     uuid = ShortUUIDField(primary_key=True)
@@ -55,3 +59,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_detail_url(self):
+        return reverse_lazy('footprints:item_detail', kwargs={'pk': self.pk})

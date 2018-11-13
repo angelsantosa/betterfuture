@@ -40,7 +40,7 @@ class OrganizationDetailView(LoginRequired, DetailView):
 
 organization_detail_view = OrganizationDetailView.as_view()
 
-class PetCreateView(CreateView):
+class PetCreateView(LoginRequired, CreateView):
 
     template_name = 'footprints/pet_create.html'
     model = UserFootPrint
@@ -59,7 +59,7 @@ class PetCreateView(CreateView):
 
 pet_create_view = PetCreateView.as_view()
 
-class PedometerCreateView(CreateView):
+class PedometerCreateView(LoginRequired, CreateView):
 
     template_name = 'footprints/pedometer_create.html'
     model = UserFootPrint
@@ -78,3 +78,25 @@ class PedometerCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 pedometer_create_view = PedometerCreateView.as_view()
+
+class DonateCreateView(LoginRequired, CreateView):
+
+    template_name = 'footprints/donate_create.html'
+    model = UserFootPrint
+    fields = ['value']
+    success_url = reverse_lazy('users:dashboard')
+
+    def form_valid(self, form):
+        kwargs = self.kwargs
+        org_pk = kwargs["org_pk"]
+        org = FootPrint.objects.get(organization=org_pk)
+        user = self.request.user
+
+        self.object = form.save(commit=False)
+        self.object.user = user
+        self.object.footprint = org
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+donate_create_view = DonateCreateView.as_view()
