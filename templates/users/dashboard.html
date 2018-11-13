@@ -3,9 +3,9 @@
 {% block content %}
 <ul>
     {% for f in fprints %}
-    <li>{{ f }}</li>
+    <li>{{ f.footprint }} - {{f.value}} units</li>
     {% empty %}
-    <li>You haven't done shit</li>
+    <li>You haven't done anything</li>
     {% endfor %}
 </ul>
 
